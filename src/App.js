@@ -3,12 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-    constructor(){
+    constructor() {
       super();
 
       this.state = {
-        name: 'Abideen',
-        company: 'ZTM'
+        
       }
     }
     render() {
