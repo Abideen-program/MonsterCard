@@ -7,33 +7,18 @@ class App extends Component {
       super()
 
       this.state = {
-       monsters: [
-        {
-          name: 'Jackie',
-          color: 'Black'
-        },
-
-        {
-          name: 'Babel',
-          color: 'Green'
-        },
-
-        {
-          name: 'Agott',
-          color: 'Blue'
-        }
-
-       ] 
+       monsters: []
       }
+      console.log('constructor')
     }
+
+            
+
     render() {
+      console.log('render')
       return (
         <div className="App">
-            {
-              this.state.monsters.map( (monster) => {
-                  return <h2>My name is {monster.name}, and I am {monster.color}</h2>
-              } )
-            }
+            
         </div>
       );
     }
