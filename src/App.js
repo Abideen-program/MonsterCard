@@ -1,15 +1,15 @@
 import { Component } from 'react'
-import CardList from './components/card-list/card-list.component';
-import SearchBox from './components/search-box/search-box.component';
 import './App.css';
+import CardList from './components/card-list/card-list.component'
+import SearchBox from './components/search-box/search-box.component';
 
-class App extends Component {   
+class App extends Component { 
     
     constructor() {
         super()
 
         this.state = {
-            monsters: [],
+            aliens: [],
             searchField: ''
         }
     }
@@ -19,16 +19,15 @@ class App extends Component {
         .then( (response) => response.json() )
         .then( (users) => this.setState( () => {
             return {
-                monsters: users
+                aliens: users
             }
-        }
-        )
-        )
+        } ) )
     }
 
     onSearch = (event) => {
-        const searchString = event.target.value.toLowerCase();
+        const searchString = event.target.value.toLocaleLowerCase();
         
+
         this.setState( () => {
             return {
                 searchField: searchString
@@ -38,24 +37,21 @@ class App extends Component {
 
     render() {
 
-        const { monsters, searchField } = this.state
+        const { aliens, searchField} = this.state
         const { onSearch } = this
 
-        const filteredMonsters = monsters.filter( (monster) => {
-            return monster.name.toLowerCase().includes(searchField)
-        }
-        )
-    
+        const filteredAliens = aliens.filter( (alien) => {
+            return alien.name.toLocaleLowerCase().includes(searchField)
+        })
+
         return (
-            <div className="App"> 
-
-                <SearchBox 
-                    onChangeHandler= {onSearch} 
-                    placeholder= 'search monster'
-                    className = 'search-box'
+            <div className="App">
+                < SearchBox 
+                    onChangeHandler = {onSearch} 
+                    placeholder={'search aliens'}
+                    className= 'alien-search-box'
                 />
-
-                <CardList monsters={filteredMonsters}/>
+                <CardList aliens={filteredAliens}/>
             </div>
         );
     }
