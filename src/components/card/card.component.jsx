@@ -2,11 +2,9 @@ import { Component } from "react";
 
 class Card extends Component {
   render() {
-
-    const {id, name, email} = this.props.alien
+    const { id, name, email } = this.props.alien;
 
     return (
-
       <div className="card-container" key={id}>
         <img
           alt={`monster ${name}`}
@@ -15,7 +13,6 @@ class Card extends Component {
         <h2>{name}</h2>
         <p>{email}</p>
       </div>
-      
     );
   }
 }
