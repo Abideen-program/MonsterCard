@@ -4,30 +4,27 @@ import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
 
 const App = () => {
+  const [searchField, setSeachField] = useState("");
+  const [aliens, setAliens] = useState([]);
+  const [filteredAliens, setFilteredAliens] = useState(aliens);
 
-    const [searchField, setSeachField] = useState('')
-    const [aliens, setAliens] = useState([])
-    const [filteredAliens, setFilteredAliens] = useState(aliens)
+  const onSearch = (event) => {
+    const searchString = event.target.value.toLowerCase();
+    setSeachField(searchString);
+  };
 
-    const onSearch = (event) => {
-        const searchString = event.target.value.toLowerCase()
-        setSeachField(searchString)
-    }
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) => setAliens(users));
+  }, []);
 
-    useEffect( () => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-        .then( (response) => response.json() )
-        .then( (users) => setAliens(users) )
-    }, [])
-
-    useEffect( () => {
-        const newFilteredAliens = aliens.filter( (alien) => {
-            return alien.name.toLowerCase().includes(searchField)
-        })
-
-        setFilteredAliens(newFilteredAliens)
-
-    }, [aliens, searchField])
+  useEffect(() => {
+    const newFilteredAliens = aliens.filter((alien) => {
+      return alien.name.toLowerCase().includes(searchField);
+    });
+    setFilteredAliens(newFilteredAliens);
+  }, [aliens, searchField]);
 
   return (
     <div className="App">
