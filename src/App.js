@@ -4,27 +4,37 @@ import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
 
 const App = () => {
+  console.log("render");
+  const [searchField, setSearchField] = useState("");
+  const [aliens, setAliens] = useState([])
 
-    const [searchField, setSearchField] = useState('')
+  fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((users) => setAliens(users))
 
-    console.log(searchField)
+  const onSearch = (event) => {
+    const searchString = event.target.value.toLowerCase();
+    setSearchField(searchString);
+  };
 
-    const onSearch = (event) => {
-        const searchString = event.target.value.toLowerCase()
-        setSearchField(searchString)
-    }
+  const filteredAliens = aliens.filter((alien) => {
+    return alien.name.toLocaleLowerCase().includes(searchField);
+  });
 
-    return (
-        <div className="App">
-            <h1 className='app-title'>Search Your Alien</h1>
-            < SearchBox
-                onChangeHandler = {onSearch}
-                placeholder={'search aliens'}
-                className= 'alien-search-box'
-                />
-        </div>
-    )
-}
+  return (
+    <div className="App">
+      <h1 className="app-title">Search Your Alien</h1>
+
+      <SearchBox
+        onChangeHandler={onSearch}
+        placeholder={"search aliens"}
+        className="alien-search-box"
+      />
+
+      <CardList aliens={filteredAliens} />
+    </div>
+  );
+};
 
 // class App extends Component {
 
